@@ -7,6 +7,10 @@ const API_TOP_STORIES = '/topstories';
 const API_NEW_STORIES = '/newstories';
 const API_BEST_STORIES = '/beststories';
 
+const PAGINATION_LIMIT = 10;
+const PAGINATION_INCREMENT_FACTOR = 1;
+const PAGINATION_DECREMENT_FACTOR = -1;
+
 export default {
   API_ITEM,
   TOP_STORIES,
@@ -15,4 +19,7 @@ export default {
   API_NEW_STORIES,
   API_TOP_STORIES,
   API_BEST_STORIES,
+  PAGINATION_LIMIT,
+  PAGINATION_INCREMENT_FACTOR,
+  PAGINATION_DECREMENT_FACTOR,
 };

@@ -1,11 +1,9 @@
 import React from 'react';
 
 import Tabs from './components/Tabs';
+import NewsList from './components/NewsList';
 
 import './App.css';
-import NewsList from './components/NewsList';
-import Http from './services/http';
-import common from './constants/common';
 
 /**
  * Main class which controls overall app.

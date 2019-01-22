@@ -23,8 +23,10 @@ class NewsList extends React.Component {
 
     this.dataIds = [];
     this.state = ({
-      dataList: [],
       page: 0,
+      dataList: [],
+      prevBtnDisabledStatus: true,
+      nextBtnDisabledStatus: false,
     });
   }
   /**
@@ -64,13 +66,21 @@ class NewsList extends React.Component {
    * @memberof NewsList
    */
   updatePage = (by) => {
-    let currentPage = this.state.page;
+    let { page, prevBtnDisabledStatus, nextBtnDisabledStatus } = this.state;
 
-    currentPage += by;
-    currentPage = Math.max(0, currentPage);
-    currentPage = Math.min(currentPage, Math.floor(this.dataIds.length / 10));
+    page += by;
+    page = Math.max(0, page);
+    const MAX_LIMIT_PAGE_INDEX = Math.floor(this.dataIds.length / AppConstants.PAGINATION_LIMIT);
+
+    page = Math.min(page, MAX_LIMIT_PAGE_INDEX);
+
+    prevBtnDisabledStatus = page <= 0;
+    nextBtnDisabledStatus = page >= MAX_LIMIT_PAGE_INDEX;
+
     this.setState({
-      page: currentPage
+      page,
+      prevBtnDisabledStatus,
+      nextBtnDisabledStatus,
     });
     this.setDataListForCurrentPage();
   }
@@ -120,14 +130,13 @@ class NewsList extends React.Component {
    */
   setDataListForCurrentPage = () => {
     this.emptyDataList();
-    const start = this.state.page * 10;
+    const start = this.state.page * AppConstants.PAGINATION_LIMIT;
 
-    for (let i = start; i < start + 10 && i < this.dataIds.length; i++) {
+    for (let i = start; i < start + AppConstants.PAGINATION_LIMIT && i < this.dataIds.length; i++) {
       Http
         .get(`${AppConstants.API_ITEM}/${this.dataIds[i]}`)
         .then((response) => {
           this.setDataList(response.data);
-          console.log(response.data);
         });
     }
   }
@@ -139,7 +148,7 @@ class NewsList extends React.Component {
    * @memberof NewsList
    */
   render() {
-    const { dataList } = this.state;
+    const { dataList, prevBtnDisabledStatus, nextBtnDisabledStatus } = this.state;
 
     const listItem = dataList.map((item) =>
       <li key={item.id}>
@@ -152,8 +161,18 @@ class NewsList extends React.Component {
         <ul className="accordion" id="accordionExample">
           {listItem}
         </ul>
-        <button onClick={(e) => this.updatePage(-1)}>Prev</button>
-        <button onClick={(e) => this.updatePage(1)}>Next</button>
+        <button
+          disabled={prevBtnDisabledStatus}
+          onClick={() => this.updatePage(AppConstants.PAGINATION_DECREMENT_FACTOR)}
+        >
+          Prev
+        </button>
+        <button
+          disabled={nextBtnDisabledStatus}
+          onClick={() => this.updatePage(AppConstants.PAGINATION_INCREMENT_FACTOR)}
+        >
+          Next
+        </button>
       </div>
     );
   }

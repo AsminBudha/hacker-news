@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Header from './components/Header';
 import App from './App';
-import AppConstants from './constants/common';
+import Header from './components/Header';
 import NotFound from './components/NotFound';
+import AppConstants from './constants/common';
 
 /**
  *

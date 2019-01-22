@@ -1,8 +1,7 @@
 import React from 'react';
-import { Route, Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Common from '../constants/common';
-import App from '../App';
 
 /**
  * Component for tabs in app.
@@ -38,25 +37,6 @@ class Tabs extends React.Component {
         </ul>
       </div>
     );
-    // return (
-    //   <div className='row'>
-    //     <Link to={Common.API_TOP_STORIES}>
-    //       <button className='col-sm'>
-    //         Top Stories
-    //       </button>
-    //     </Link>
-    //     <Link to={Common.API_NEW_STORIES}>
-    //       <button className='col-sm'>
-    //         New Stories
-    //       </button>
-    //     </Link>
-    //     <Link to={Common.API_BEST_STORIES}>
-    //       <button className='col-sm'>
-    //         Best Stories
-    //       </button>
-    //     </Link>
-    //   </div>
-    // );
   }
 }
 
