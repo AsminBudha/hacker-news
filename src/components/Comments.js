@@ -18,6 +18,14 @@ class Comments extends React.Component {
   }
 
   /**
+   * This function is called automaticall after component is rendered.
+   *
+   * @memberof Comments
+   */
+  componentDidMount() {
+
+  }
+  /**
    * Render is automatically called to render its components.
    *
    * @returns
@@ -26,7 +34,7 @@ class Comments extends React.Component {
   render() {
     return (
       <div>
-
+        hello world
       </div>
     );
   }
