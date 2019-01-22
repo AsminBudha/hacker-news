@@ -1,25 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
+import Tabs from './components/Tabs';
+
+import './App.css';
+import NewsList from './components/NewsList';
+import Http from './services/http';
+import common from './constants/common';
+
+/**
+ * Main class which controls overall app.
+ *
+ * @class App
+ * @extends {React.Component}
+ */
+class App extends React.Component {
+
+  /**
+   * Creates an instance of App.
+   *
+   * @param {*} props
+   * @memberof App
+   */
+  constructor(props) {
+    super(props);
+  }
+
+  /**
+   * Render method is called automatically. It renders JSX component.
+   *
+   * @returns
+   * @memberof App
+   */
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="App container">
+        <Tabs />
+        <NewsList {...this.props} />
       </div>
     );
   }
