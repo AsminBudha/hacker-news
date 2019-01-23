@@ -12,9 +12,12 @@ const SinglePost = (props) => {
   const { data } = props;
 
   return (
-    <div>
-      <h2>{data.title}</h2>
-      <Comments data={data.kids} />
+    <div className='card'>
+      <div className='card-header'>{data.title}</div>
+      <div className='card-body'>
+        <Comments data={data.kids} />
+      </div>
+
     </div>
   );
 };

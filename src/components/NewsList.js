@@ -113,7 +113,7 @@ class NewsList extends React.Component {
 
     return (
       <div>
-        <ul className="accordion" id="accordionExample">
+        <ul>
           {listItem}
         </ul>
         <button

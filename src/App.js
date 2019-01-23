@@ -12,8 +12,8 @@ import './index.css';
  */
 const App = (props) => {
   return (
-    <div className="App container">
-      <Tabs />
+    <div className="App">
+      <Tabs {...props} />
       <NewsList {...props} />
     </div>
   );

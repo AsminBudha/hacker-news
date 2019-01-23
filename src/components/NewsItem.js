@@ -51,30 +51,32 @@ class NewsItem extends React.Component {
   render() {
     const { data } = this.state;
     const element = data ?
-      <div>
-        <h4>{data.title}</h4>
-        <div>
+      <div className='card card-wrapper'>
+        <div className='card-header'>{data.title}</div>
+        <div className='card-body'>
+          <h6 className='blockquote-footer'>
+            <cite title={data.by} >{data.by}</cite>
+          </h6>
 
-          author : <span>{data.by} </span>
-          created At : <span>{new Date(data.time).toLocaleString()} </span>
-          type : <span>{data.type}</span>
-          <span onClick={() => window.location.href = data.url}> Read More</span>
-          Comments:
-          <Link to={
-            {
-              pathname: `${AppConstants.API_ITEM}/:${data.id}`,
-              state: { data: data }
-            }}
+          <h6 className="card-subtitle mb-2 text-muted">Created At: {new Date(data.time).toLocaleString()} </h6>
+          <h6 className="card-subtitle mb-2 text-muted">Type: {data.type}</h6>
+          <Link className='card-subtitle mb-2 text-muted'
+            to={
+              {
+                pathname: `${AppConstants.API_ITEM}/:${data.id}`,
+                state: { data: data }
+              }}
           >
-            {data.descendants}
+            Comments: {data.descendants}
           </Link>
+          <button onClick={() => window.location.href = data.url} className="btn btn-primary card-read-more">Read More</button>
         </div>
-      </div> : 'Loading';
+      </div> : <div className="card">Loading</div>;
 
     return (
-      <div className="card">
+      <>
         {element}
-      </div >
+      </>
     );
   }
 }
