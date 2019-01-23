@@ -1,43 +1,24 @@
 import React from 'react';
 
+import SingleComment from './SingleComment';
+
 /**
- * This class renders comments for single Post.
+ * Component for comments box and comments list.
  *
- * @class Comments
- * @extends {React.Component}
+ * @param {Object} props Object of params send by calling object.
  */
-class Comments extends React.Component {
-  /**
-   * Creates an instance of Comments.
-   *
-   * @param {*} props
-   * @memberof Comments
-   */
-  constructor(props) {
-    super(props);
-  }
+const Comments = (props) => {
+  const kids = props.data || [];
+  const items = kids
+    .map((id) => {
+      return <li key={id}><SingleComment id={id} /></li>;
+    });
 
-  /**
-   * This function is called automaticall after component is rendered.
-   *
-   * @memberof Comments
-   */
-  componentDidMount() {
-
-  }
-  /**
-   * Render is automatically called to render its components.
-   *
-   * @returns
-   * @memberof Comments
-   */
-  render() {
-    return (
-      <div>
-        hello world
-      </div>
-    );
-  }
-}
+  return (
+    <ul className='comments'>
+      {items}
+    </ul>
+  );
+};
 
 export default Comments;

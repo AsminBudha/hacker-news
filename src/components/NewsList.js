@@ -11,7 +11,6 @@ import AppConstants from '../constants/common';
  * @extends {React.Component}
  */
 class NewsList extends React.Component {
-
   /**
    * Creates an instance of NewsList.
    *
@@ -21,43 +20,13 @@ class NewsList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dataIds = [];
     this.state = ({
       page: 0,
-      dataList: [],
+      dataIds: [],
       prevBtnDisabledStatus: true,
       nextBtnDisabledStatus: false,
     });
   }
-  /**
-   * Set data retrieved from server.
-   *
-   * @param {Object} data
-   * @memberof App
-   */
-  setDataList = (data) => {
-    const dataList = this.state.dataList.map((item) => ({ ...item }));
-
-    dataList.push(data);
-    this.setState({ dataList });
-  }
-
-  /**
-   * Set id's of data into state.
-   *
-   * @param {Array<Number>} dataIds Id's of data in array.
-   * @memberof App
-   */
-  setDataIds = (dataIds) => {
-    this.setState({ dataIds });
-  }
-
-  /**
-   * Empty the list of data in state.
-   *
-   * @memberof NewsList
-   */
-  emptyDataList = () => this.setState({ dataList: [] })
 
   /**
    * Update page number with value by either increase or decrease.
@@ -66,11 +35,12 @@ class NewsList extends React.Component {
    * @memberof NewsList
    */
   updatePage = (by) => {
+    const { dataIds } = this.state;
     let { page, prevBtnDisabledStatus, nextBtnDisabledStatus } = this.state;
 
     page += by;
     page = Math.max(0, page);
-    const MAX_LIMIT_PAGE_INDEX = Math.floor(this.dataIds.length / AppConstants.PAGINATION_LIMIT);
+    const MAX_LIMIT_PAGE_INDEX = Math.floor(dataIds.length / AppConstants.PAGINATION_LIMIT);
 
     page = Math.min(page, MAX_LIMIT_PAGE_INDEX);
 
@@ -82,23 +52,6 @@ class NewsList extends React.Component {
       prevBtnDisabledStatus,
       nextBtnDisabledStatus,
     });
-    this.setDataListForCurrentPage();
-  }
-
-  /**
-   * This function is automatically called after render is done.
-   *
-   * @memberof App
-   */
-  async componentDidMount() {
-
-    // if (this.dataIds.length <= 0) {
-    const path = this.checkPath();
-    const dataIds = await Http.get(path);
-
-    this.dataIds = dataIds.data;
-    // }
-    this.setDataListForCurrentPage();
   }
 
   /**
@@ -124,35 +77,37 @@ class NewsList extends React.Component {
   }
 
   /**
-   * Set data for current page into state.
+   * This function is automatically called after render is done.
+   * Retrieve news ids from API and set into state.
    *
-   * @memberof NewsList
+   * @memberof App
    */
-  setDataListForCurrentPage = () => {
-    this.emptyDataList();
-    const start = this.state.page * AppConstants.PAGINATION_LIMIT;
+  componentDidMount() {
+    const path = this.checkPath();
+    const dataIds = Http.get(path);
 
-    for (let i = start; i < start + AppConstants.PAGINATION_LIMIT && i < this.dataIds.length; i++) {
-      Http
-        .get(`${AppConstants.API_ITEM}/${this.dataIds[i]}`)
-        .then((response) => {
-          this.setDataList(response.data);
-        });
-    }
+    dataIds.then((res) => {
+      this.setState({
+        dataIds: res.data
+      });
+    });
   }
 
   /**
    * Renders JSX component.
+   * Component with news list and pagination button below.
    *
    * @returns
    * @memberof NewsList
    */
   render() {
-    const { dataList, prevBtnDisabledStatus, nextBtnDisabledStatus } = this.state;
-
-    const listItem = dataList.map((item) =>
-      <li key={item.id}>
-        <NewsItem item={item} />
+    const { prevBtnDisabledStatus, nextBtnDisabledStatus, dataIds } = this.state;
+    const start = this.state.page * AppConstants.PAGINATION_LIMIT;
+    const end = Math.min(start + AppConstants.PAGINATION_LIMIT, dataIds.length);
+    const dataIdList = dataIds.slice(start, end);
+    const listItem = dataIdList.map((id) =>
+      <li key={id}>
+        <NewsItem id={id} />
       </li>
     );
 

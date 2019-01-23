@@ -3,6 +3,7 @@ const NEW_STORIES = 1;
 const BEST_STORIES = 2;
 
 const API_ITEM = '/item';
+const API_ITEM_SINGLE = '/item/:id';
 const API_TOP_STORIES = '/topstories';
 const API_NEW_STORIES = '/newstories';
 const API_BEST_STORIES = '/beststories';
@@ -18,6 +19,7 @@ export default {
   BEST_STORIES,
   API_NEW_STORIES,
   API_TOP_STORIES,
+  API_ITEM_SINGLE,
   API_BEST_STORIES,
   PAGINATION_LIMIT,
   PAGINATION_INCREMENT_FACTOR,
