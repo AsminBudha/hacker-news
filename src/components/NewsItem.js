@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Http from '../services/http';
-import AppConstants from '../constants/common';
+import http from '../services/http';
+import * as appConstants from '../constants/common';
 
 /**
  * Renders single item of news.
@@ -26,6 +26,17 @@ class NewsItem extends React.Component {
   }
 
   /**
+   * Redirect the page to orignal post site.
+   *
+   * @memberof NewsItem
+   */
+  redirectToOriginalPost = () => {
+    const { data: { url } } = this.state;
+
+    window.location.href = url;
+  }
+
+  /**
    * This function is called automatically after render is finished.
    * It retrieve data of current item from API.
    *
@@ -34,8 +45,8 @@ class NewsItem extends React.Component {
   componentDidMount() {
     const { id } = this.props;
 
-    Http
-      .get(`${AppConstants.API_ITEM}/${id}`)
+    http
+      .getItem(id)
       .then((response) => {
         this.setState({
           data: response.data,
@@ -50,26 +61,33 @@ class NewsItem extends React.Component {
    */
   render() {
     const { data } = this.state;
-    const element = data ?
-      <div>
-        <h4>{data.title}</h4>
-        <div>
+    let element;
 
-          author : <span>{data.by} </span>
-          created At : <span>{new Date(data.time).toLocaleString()} </span>
-          type : <span>{data.type}</span>
-          <span onClick={() => window.location.href = data.url}> Read More</span>
-          Comments:
-          <Link to={
-            {
-              pathname: `${AppConstants.API_ITEM}/:${data.id}`,
-              state: { data: data }
-            }}
-          >
-            {data.descendants}
-          </Link>
-        </div>
-      </div> : 'Loading';
+    if (data) {
+      const { data: { id, title, by, time, type, descendants } } = this.state;
+
+      element =
+        <div>
+          <h4>{title}</h4>
+          <div>
+            author : <span>{by} </span>
+            created At : <span>{new Date(time).toLocaleString()} </span>
+            type : <span>{type}</span>
+            <span onClick={this.redirectToOriginalPost}> Read More</span>
+            Comments:
+            <Link to={
+              {
+                pathname: `${appConstants.API_ITEM}/${id}`,
+                state: { data: data }
+              }}
+            >
+              {descendants}
+            </Link>
+          </div>
+        </div>;
+    } else {
+      element = 'Loading';
+    }
 
     return (
       <div className="card">

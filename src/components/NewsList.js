@@ -1,8 +1,8 @@
 import React from 'react';
 
 import NewsItem from './NewsItem';
-import Http from '../services/http';
-import AppConstants from '../constants/common';
+import http from '../services/http';
+import * as appConstants from '../constants/common';
 
 /**
  * Display list of item.
@@ -31,16 +31,16 @@ class NewsList extends React.Component {
   /**
    * Update page number with value by either increase or decrease.
    *
-   * @param {number} by Increase or Decrease value normally +-1.
+   * @param {number} incrementFactor Increase or Decrease value normally +-1.
    * @memberof NewsList
    */
-  updatePage = (by) => {
+  updatePage = (incrementFactor) => {
     const { dataIds } = this.state;
     let { page, prevBtnDisabledStatus, nextBtnDisabledStatus } = this.state;
 
-    page += by;
+    page += incrementFactor;
     page = Math.max(0, page);
-    const MAX_LIMIT_PAGE_INDEX = Math.floor(dataIds.length / AppConstants.PAGINATION_LIMIT);
+    const MAX_LIMIT_PAGE_INDEX = Math.floor(dataIds.length / appConstants.PAGINATION_LIMIT);
 
     page = Math.min(page, MAX_LIMIT_PAGE_INDEX);
 
@@ -65,14 +65,14 @@ class NewsList extends React.Component {
     } } = this.props;
 
     switch (pathname.toLowerCase()) {
-      case AppConstants.API_NEW_STORIES.toLowerCase():
-        return AppConstants.API_NEW_STORIES;
-      case AppConstants.API_BEST_STORIES.toLowerCase():
-        return AppConstants.API_BEST_STORIES;
-      case AppConstants.API_TOP_STORIES:
-        return AppConstants.API_TOP_STORIES;
+      case appConstants.API_NEW_STORIES.toLowerCase():
+        return appConstants.API_NEW_STORIES;
+      case appConstants.API_BEST_STORIES.toLowerCase():
+        return appConstants.API_BEST_STORIES;
+      case appConstants.API_TOP_STORIES:
+        return appConstants.API_TOP_STORIES;
       default:
-        return AppConstants.API_TOP_STORIES;
+        return appConstants.API_TOP_STORIES;
     }
   }
 
@@ -84,7 +84,7 @@ class NewsList extends React.Component {
    */
   componentDidMount() {
     const path = this.checkPath();
-    const dataIds = Http.get(path);
+    const dataIds = http.getNews(path);
 
     dataIds.then((res) => {
       this.setState({
@@ -102,8 +102,8 @@ class NewsList extends React.Component {
    */
   render() {
     const { prevBtnDisabledStatus, nextBtnDisabledStatus, dataIds } = this.state;
-    const start = this.state.page * AppConstants.PAGINATION_LIMIT;
-    const end = Math.min(start + AppConstants.PAGINATION_LIMIT, dataIds.length);
+    const start = this.state.page * appConstants.PAGINATION_LIMIT;
+    const end = Math.min(start + appConstants.PAGINATION_LIMIT, dataIds.length);
     const dataIdList = dataIds.slice(start, end);
     const listItem = dataIdList.map((id) =>
       <li key={id}>
@@ -118,15 +118,15 @@ class NewsList extends React.Component {
         </ul>
         <button
           disabled={prevBtnDisabledStatus}
-          onClick={() => this.updatePage(AppConstants.PAGINATION_DECREMENT_FACTOR)}
+          onClick={() => this.updatePage(appConstants.PAGINATION_DECREMENT_FACTOR)}
         >
-          Prev
+          {appConstants.PREV_TXT}
         </button>
         <button
           disabled={nextBtnDisabledStatus}
-          onClick={() => this.updatePage(AppConstants.PAGINATION_INCREMENT_FACTOR)}
+          onClick={() => this.updatePage(appConstants.PAGINATION_INCREMENT_FACTOR)}
         >
-          Next
+          {appConstants.NEXT_TXT}
         </button>
       </div>
     );

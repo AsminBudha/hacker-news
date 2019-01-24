@@ -9,12 +9,12 @@ import Comments from './Comments';
  * @param {Object} props
  */
 const SinglePost = (props) => {
-  const { data } = props;
+  const { data: { title, kids } } = props;
 
   return (
     <div>
-      <h2>{data.title}</h2>
-      <Comments data={data.kids} />
+      <h2>{title}</h2>
+      <Comments data={kids} />
     </div>
   );
 };
