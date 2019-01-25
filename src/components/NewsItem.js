@@ -60,7 +60,7 @@ class NewsItem extends React.Component {
 
           <h6 className="card-subtitle mb-2 text-muted">Created At: {new Date(data.time).toLocaleString()} </h6>
           <h6 className="card-subtitle mb-2 text-muted">Type: {data.type}</h6>
-          <Link className='card-subtitle mb-2 text-muted'
+          <Link className='card-subtitle mb-2'
             to={
               {
                 pathname: `${AppConstants.API_ITEM}/:${data.id}`,

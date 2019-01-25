@@ -36,6 +36,10 @@ ul{
   padding-right: 0px;
 }
 
+.tab-item a{
+  text-align: center;
+}
+
 .tabs{
   margin: auto 0px;
 }
