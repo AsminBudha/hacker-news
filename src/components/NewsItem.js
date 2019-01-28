@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Http from '../services/http';
-import AppConstants from '../constants/common';
+import http from '../services/http';
+import * as appConstants from '../constants/common';
 
 /**
  * Renders single item of news.
@@ -26,6 +26,17 @@ class NewsItem extends React.Component {
   }
 
   /**
+   * Redirect the page to orignal post site.
+   *
+   * @memberof NewsItem
+   */
+  redirectToOriginalPost = () => {
+    const { data: { url } } = this.state;
+
+    window.location.href = url;
+  }
+
+  /**
    * This function is called automatically after render is finished.
    * It retrieve data of current item from API.
    *
@@ -34,8 +45,8 @@ class NewsItem extends React.Component {
   componentDidMount() {
     const { id } = this.props;
 
-    Http
-      .get(`${AppConstants.API_ITEM}/${id}`)
+    http
+      .getItem(id)
       .then((response) => {
         this.setState({
           data: response.data,
@@ -50,28 +61,36 @@ class NewsItem extends React.Component {
    */
   render() {
     const { data } = this.state;
-    const element = data ?
-      <div className='card card-wrapper'>
-        <div className='card-header'>{data.title}</div>
-        <div className='card-body'>
-          <h6 className='blockquote-footer'>
-            <cite title={data.by} >{data.by}</cite>
-          </h6>
+    let element;
 
-          <h6 className="card-subtitle mb-2 text-muted">Created At: {new Date(data.time).toLocaleString()} </h6>
-          <h6 className="card-subtitle mb-2 text-muted">Type: {data.type}</h6>
-          <Link className='card-subtitle mb-2'
-            to={
-              {
-                pathname: `${AppConstants.API_ITEM}/:${data.id}`,
-                state: { data: data }
-              }}
-          >
-            Comments: {data.descendants}
-          </Link>
-          <button onClick={() => window.location.href = data.url} className="btn btn-primary card-read-more">Read More</button>
-        </div>
-      </div> : <div className="card">Loading</div>;
+    if (data) {
+      const { data: { id, title, by, time, type } } = this.state;
+
+      element =
+        <div className='card card-wrapper'>
+          <div className='card-header'>{title}</div>
+          <div className='card-body'>
+            <h6 className='blockquote-footer'>
+              <cite title={by} >{by}</cite>
+            </h6>
+
+            <h6 className="card-subtitle mb-2 text-muted">Created At: {new Date(time).toLocaleString()} </h6>
+            <h6 className="card-subtitle mb-2 text-muted">Type: {type}</h6>
+            <Link className='card-subtitle mb-2'
+              to={
+                {
+                  pathname: `${appConstants.API_ITEM}/:${id}`,
+                  state: { data: data }
+                }}
+            >
+              Comments: {data.descendants}
+            </Link>
+            <button onClick={this.redirectToOriginalPost} className="btn btn-primary card-read-more">Read More</button>
+          </div>
+        </div>;
+    } else {
+      element = <div className="card">Loading</div>;
+    }
 
     return (
       <>

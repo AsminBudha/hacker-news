@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Common from '../constants/common';
+import * as appConstants from '../constants/common';
 
 /**
  * Component for tabs in app.
@@ -12,21 +12,21 @@ const Tabs = (props) => {
   const { pathname } = props.location;
   const classForLink = {};
 
-  classForLink[Common.TOP_STORIES] = 'nav-link ' + (Common.API_TOP_STORIES === pathname && 'active');
-  classForLink[Common.NEW_STORIES] = 'nav-link ' + (Common.API_NEW_STORIES === pathname && 'active');
-  classForLink[Common.BEST_STORIES] = 'nav-link ' + (Common.API_BEST_STORIES === pathname && 'active');
+  classForLink[appConstants.TOP_STORIES] = 'nav-link ' + (appConstants.API_TOP_STORIES === pathname && 'active');
+  classForLink[appConstants.NEW_STORIES] = 'nav-link ' + (appConstants.API_NEW_STORIES === pathname && 'active');
+  classForLink[appConstants.BEST_STORIES] = 'nav-link ' + (appConstants.API_BEST_STORIES === pathname && 'active');
 
   return (
-    <div>
-      <ul className="nav nav-tabs row tabs">
-        <li className="nav-item col-sm tab-item">
-          <Link to={Common.API_TOP_STORIES} className={classForLink[Common.TOP_STORIES]}>Top Stories</Link>
+    <div className='nav-content'>
+      <ul className="tabs tabs-transparent nav nav-tabs row tabs">
+        <li className="tab nav-item col-sm tab-item">
+          <Link to={appConstants.API_TOP_STORIES} className={classForLink[appConstants.TOP_STORIES]}>{appConstants.TOP_STORIES_TXT}</Link>
         </li>
-        <li className="nav-item col-sm tab-item">
-          <Link to={Common.API_NEW_STORIES} className={classForLink[Common.NEW_STORIES]}>New Stories</Link>
+        <li className="tab nav-item col-sm tab-item">
+          <Link to={appConstants.API_NEW_STORIES} className={classForLink[appConstants.NEW_STORIES]}>{appConstants.NEW_STORIES_TXT}</Link>
         </li>
-        <li className="nav-item col-sm tab-item">
-          <Link to={Common.API_BEST_STORIES} className={classForLink[Common.BEST_STORIES]}>Best Stories</Link>
+        <li className="tab nav-item col-sm tab-item">
+          <Link to={appConstants.API_BEST_STORIES} className={classForLink[appConstants.BEST_STORIES]}>{appConstants.BEST_STORIES_TXT}</Link>
         </li>
       </ul>
     </div>
