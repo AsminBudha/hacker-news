@@ -14,7 +14,10 @@ const PAGINATION_LIMIT = 10;
 const PAGINATION_INCREMENT_FACTOR = 1;
 const PAGINATION_DECREMENT_FACTOR = -1;
 
-const IS_LOGGED_IN_KEY = 'isLoggedIn';
+export const IS_LOGGED_IN_KEY = 'isLoggedIn';
+
+export const SIGN_IN_TXT = 'Sign In';
+export const SIGN_UP_TXT = 'Sign Up';
 
 export default {
   API_ITEM,
