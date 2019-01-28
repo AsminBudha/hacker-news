@@ -15,6 +15,16 @@ code {
 
 .head-title{
   text-align: center;
+  background-color: rgba(0,0,0,.03);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  color: #25292D;
+}
+
+.header-icon{
+  float: right;
+  padding-right: 15px;
 }
 
 ul{

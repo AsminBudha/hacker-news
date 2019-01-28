@@ -1,7 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Tabs from './components/Tabs';
 import NewsList from './components/NewsList';
+import appConstants from './constants/common';
+import * as localStorage from './services/localStorage';
 
 import './index.css';
 
@@ -11,10 +14,18 @@ import './index.css';
  * @param {Object} props
  */
 const App = (props) => {
-  return (
-    <div className="App">
+  const isLoggedIn = localStorage.getLocalStorage('isLoggedIn') === 'true';
+  const component = isLoggedIn ?
+    <>
       <Tabs {...props} />
       <NewsList {...props} />
+    </> :
+    <Redirect to={appConstants.PATH_LOGIN} />
+    ;
+
+  return (
+    <div className="App">
+      {component}
     </div>
   );
 };
