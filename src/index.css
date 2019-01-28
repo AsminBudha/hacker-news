@@ -12,3 +12,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+ul{
+  list-style-type: none;
+  padding: 0px;
+}
+.red{
+  background: red;
+}
+
+.comments{
+  padding-left: 15px;
+}
