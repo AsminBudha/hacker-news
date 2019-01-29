@@ -55,6 +55,7 @@ class NewsItem extends React.Component {
   }
 
   /**
+   * JSX element to render.
    *
    * @returns
    * @memberof NewsItem
@@ -75,18 +76,25 @@ class NewsItem extends React.Component {
               <cite title={by} >{by}</cite>
             </h6>
 
-            <h6 className="card-subtitle mb-2 text-muted">Created At: {createdDate} </h6>
+            <h6 className="card-subtitle mb-2 text-muted">
+              Created At: {createdDate}
+            </h6>
             <h6 className="card-subtitle mb-2 text-muted">Type: {type}</h6>
             <Link className='card-subtitle mb-2'
               to={
                 {
+                  state: { data: data },
                   pathname: `${appConstants.API_ITEM}/${id}`,
-                  state: { data: data }
                 }}
             >
               Comments: {descendants}
             </Link>
-            <button onClick={this.redirectToOriginalPost} className="btn btn-primary card-read-more">Read More</button>
+            <button
+              onClick={this.redirectToOriginalPost}
+              className="btn btn-primary card-read-more"
+            >
+              Read More
+            </button>
           </div>
         </div>;
     } else {

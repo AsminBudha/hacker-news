@@ -8,7 +8,6 @@ export const BEST_STORIES_TXT = 'Best Stories';
 
 export const PATH_LOGIN = '/login';
 
-
 export const IS_LOGGED_IN_KEY = 'isLoggedIn';
 export const USERS_IN_STORAGE = 'users';
 

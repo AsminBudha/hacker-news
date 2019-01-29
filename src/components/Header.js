@@ -4,14 +4,14 @@ import * as appConstants from '../constants/common';
 import * as localStorage from '../services/localStorage';
 
 /**
- *
+ * Components for header part of app - App title and sign out button.
  *
  * @class Header
  * @extends {React.Component}
  */
 class Header extends React.Component {
   /**
-   *
+   * Updates a flag with false value which is used for whether user is logged in.
    *
    * @memberof Header
    */
@@ -21,7 +21,7 @@ class Header extends React.Component {
   }
 
   /**
-   *
+   * JSX for header.
    *
    * @returns
    * @memberof Header
@@ -33,8 +33,7 @@ class Header extends React.Component {
         <div className='header-icon'>
           <i className="fas fa-sign-out-alt" onClick={this.handleSignOut}></i>
         </div>
-
-        <h1>Hacker News</h1>
+        <h1>{appConstants.APP_TITLE}</h1>
       </div>
     );
   }

@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import App from './App';
+import Login from './components/Login';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
-import * as appConstants from './constants/common';
 import SinglePost from './components/SinglePost';
-import Login from './components/Login';
+import * as appConstants from './constants/common';
 
 /**
- *
+ * Component for routing.
  *
  * @class AppRouter
  * @extends {React.Component}

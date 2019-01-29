@@ -127,7 +127,11 @@ class NewsList extends React.Component {
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li className="page-item active"><a className="page-link" href="#">{page + 1}</a></li>
+            <li className="page-item active">
+              <a className="page-link" href="#">
+                {page + 1}
+              </a>
+            </li>
             <li
               className={`page-item ${nextBtnDisabledStatusTxt}`}
               onClick={() => this.updatePage(appConstants.PAGINATION_INCREMENT_FACTOR)}>

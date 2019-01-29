@@ -51,7 +51,8 @@ class Login extends React.Component {
   }
 
   /**
-   *
+   * This function check whethers submit is triggered from sign in or sign up.
+   * And calls respective function.
    *
    * @param {Object} e
    * @memberof Login
@@ -67,7 +68,8 @@ class Login extends React.Component {
   }
 
   /**
-   * Handle the submission.
+   * Handle sign in.
+   * Checks if username and password match and redirect to home page else alert.
    *
    * @memberof Login
    */
@@ -92,7 +94,9 @@ class Login extends React.Component {
   }
 
   /**
-   *
+   * Handle Sign up.
+   * Check if email is already stored.
+   * If not already used store it and redirect to home page else alert.
    *
    * @memberof Login
    */
@@ -117,7 +121,8 @@ class Login extends React.Component {
   }
 
   /**
-   *
+   * Stores flag or text in variable.
+   * This flag helps to redirect to respective function in handleSubmit function.
    *
    * @param {Object} e
    * @memberof Login
@@ -160,8 +165,22 @@ class Login extends React.Component {
             onChange={this.handlePasswordChange}
           />
         </div>
-        <button className="btn btn-primary" type='submit' onClick={this.assignSubmitBtnType} value={appConstants.SIGN_IN_TXT}>{appConstants.SIGN_IN_TXT}</button>
-        <button className="btn btn-primary btn-signup" type='submit' onClick={this.assignSubmitBtnType} value={appConstants.SIGN_UP_TXT}>{appConstants.SIGN_UP_TXT}</button>
+        <button
+          type='submit'
+          className="btn btn-primary"
+          value={appConstants.SIGN_IN_TXT}
+          onClick={this.assignSubmitBtnType}
+        >
+          {appConstants.SIGN_IN_TXT}
+        </button>
+        <button
+          type='submit'
+          value={appConstants.SIGN_UP_TXT}
+          onClick={this.assignSubmitBtnType}
+          className="btn btn-primary btn-signup"
+        >
+          {appConstants.SIGN_UP_TXT}
+        </button>
       </form>
     );
   }
