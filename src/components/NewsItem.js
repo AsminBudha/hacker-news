@@ -64,7 +64,8 @@ class NewsItem extends React.Component {
     let element;
 
     if (data) {
-      const { data: { id, title, by, time, type } } = this.state;
+      const { data: { id, title, by, time, type, descendants } } = this.state;
+      const createdDate = new Date(time).toLocaleString();
 
       element =
         <div className='card card-wrapper'>
@@ -74,16 +75,16 @@ class NewsItem extends React.Component {
               <cite title={by} >{by}</cite>
             </h6>
 
-            <h6 className="card-subtitle mb-2 text-muted">Created At: {new Date(time).toLocaleString()} </h6>
+            <h6 className="card-subtitle mb-2 text-muted">Created At: {createdDate} </h6>
             <h6 className="card-subtitle mb-2 text-muted">Type: {type}</h6>
             <Link className='card-subtitle mb-2'
               to={
                 {
-                  pathname: `${appConstants.API_ITEM}/:${id}`,
+                  pathname: `${appConstants.API_ITEM}/${id}`,
                   state: { data: data }
                 }}
             >
-              Comments: {data.descendants}
+              Comments: {descendants}
             </Link>
             <button onClick={this.redirectToOriginalPost} className="btn btn-primary card-read-more">Read More</button>
           </div>
