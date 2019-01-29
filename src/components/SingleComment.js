@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Comment from './Comments';
-import Http from '../services/http';
-import AppConstants from '../constants/common';
+import http from '../services/http';
 
 /**
  * This class shows single comment.
@@ -33,8 +32,8 @@ class SingleComment extends React.Component {
   componentDidMount() {
     const { id } = this.props;
 
-    Http
-      .get(`${AppConstants.API_ITEM}/${id}`)
+    http
+      .getItem(id)
       .then((response) => {
         this.setState({
           data: response.data,

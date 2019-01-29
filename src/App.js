@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import Tabs from './components/Tabs';
 import NewsList from './components/NewsList';
-import appConstants from './constants/common';
+import * as appConstants from './constants/common';
 import * as localStorage from './services/localStorage';
 
 import './index.css';

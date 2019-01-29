@@ -7,9 +7,8 @@ import SingleComment from './SingleComment';
  *
  * @param {Object} props Object of params send by calling object.
  */
-const Comments = (props) => {
-  const kids = props.data || [];
-  const items = kids
+const Comments = ({ data = [] }) => {
+  const items = data
     .map((id) => {
       return <li key={id}><SingleComment id={id} /></li>;
     });

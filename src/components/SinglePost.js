@@ -9,13 +9,13 @@ import Comments from './Comments';
  * @param {Object} props
  */
 const SinglePost = (props) => {
-  const { data } = props;
+  const { data: { title, kids } } = props;
 
   return (
     <div className='card'>
-      <div className='card-header'>{data.title}</div>
+      <div className='card-header'>{title}</div>
       <div className='card-body'>
-        <Comments data={data.kids} />
+        <Comments data={kids} />
       </div>
 
     </div>

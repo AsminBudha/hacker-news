@@ -1,6 +1,6 @@
 import React from 'react';
 
-import appConstants from '../constants/common';
+import * as appConstants from '../constants/common';
 import * as localStorage from '../services/localStorage';
 
 /**
