@@ -65,3 +65,7 @@ ul{
 .card-wrapper:nth-child(1){
   margin-top: 0px;
 }
+
+.btn-signup{
+  margin-left: 15px;
+}

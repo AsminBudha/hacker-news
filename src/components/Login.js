@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as appConstants from '../constants/common';
+import * as localStorage from '../services/localStorage';
 
 /**
  * Component for login page.
@@ -21,6 +22,8 @@ class Login extends React.Component {
       emailVal: '',
       passwordVal: '',
     };
+
+    this.submitBtnType = '';
   }
 
   /**
@@ -48,35 +51,79 @@ class Login extends React.Component {
   }
 
   /**
-   * Handle the submission.
    *
-   * @param {Object} e Event trigerred on Submit.
+   *
+   * @param {Object} e
    * @memberof Login
    */
-  handleSignIn = (e) => {
-    // console.log(e);
+  handleSubmit = (e) => {
     e.preventDefault();
+
+    if (this.submitBtnType === appConstants.SIGN_IN_TXT) {
+      this.handleSignIn();
+    } else {
+      this.handleSignUp();
+    }
+  }
+
+  /**
+   * Handle the submission.
+   *
+   * @memberof Login
+   */
+  handleSignIn = () => {
     const { emailVal, passwordVal } = this.state;
 
     if (!emailVal || !passwordVal) {
       return;
     }
-    // if (emailVal === 'test' && passwordVal === 'test') {
-    //   localStorage.setItem(appConstants.IS_LOGGED_IN_KEY, true);
-    //   this.props.history.push('');
-    // }
-    localStorage.setItem(appConstants.IS_LOGGED_IN_KEY, true);
-    this.props.history.push('');
+
+    const users = JSON.parse(localStorage.getLocalStorage(appConstants.USERS_IN_STORAGE)) || [];
+    const temp = users.filter((item) =>
+      item.email === emailVal && item.password === passwordVal);
+
+    if (temp.length > 0) {
+      localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
+      this.props.history.push('');
+    } else {
+      alert('Username or Password didn\'t match');
+    }
+
   }
 
+  /**
+   *
+   *
+   * @memberof Login
+   */
   handleSignUp = () => {
     const { emailVal, passwordVal } = this.state;
 
     if (!emailVal || !passwordVal) {
       return;
     }
-    localStorage.setItem(appConstants.IS_LOGGED_IN_KEY, true);
-    this.props.history.push('');
+
+    const users = JSON.parse(localStorage.getLocalStorage(appConstants.USERS_IN_STORAGE)) || [];
+    const temp = users.filter((item) => item.email === emailVal);
+
+    if (temp.length > 0) {
+      alert('Email already used');
+    } else {
+      localStorage.setLocalStorage(appConstants.USERS_IN_STORAGE
+        , JSON.stringify([...users, { email: emailVal, password: passwordVal }]));
+      localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
+      this.props.history.push('');
+    }
+  }
+
+  /**
+   *
+   *
+   * @param {Object} e
+   * @memberof Login
+   */
+  assignSubmitBtnType = (e) => {
+    this.submitBtnType = e.target.value;
   }
 
   /**
@@ -89,7 +136,7 @@ class Login extends React.Component {
     const { emailVal, passwordVal } = this.state;
 
     return (
-      <form onSubmit={this.handleSignIn}>
+      <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input
@@ -113,8 +160,8 @@ class Login extends React.Component {
             onChange={this.handlePasswordChange}
           />
         </div>
-        <button className="btn btn-primary" type='submit' value={appConstants.SIGN_IN_TXT}>{appConstants.SIGN_IN_TXT}</button>
-        <button className="btn btn-primary" type='submit' value={appConstants.SIGN_UP_TXT}>{appConstants.SIGN_UP_TXT}</button>
+        <button className="btn btn-primary" type='submit' onClick={this.assignSubmitBtnType} value={appConstants.SIGN_IN_TXT}>{appConstants.SIGN_IN_TXT}</button>
+        <button className="btn btn-primary btn-signup" type='submit' onClick={this.assignSubmitBtnType} value={appConstants.SIGN_UP_TXT}>{appConstants.SIGN_UP_TXT}</button>
       </form>
     );
   }
