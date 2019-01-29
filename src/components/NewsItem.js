@@ -65,34 +65,38 @@ class NewsItem extends React.Component {
 
     if (data) {
       const { data: { id, title, by, time, type, descendants } } = this.state;
+      const createdDate = new Date(time).toLocaleString();
 
       element =
-        <div>
-          <h4>{title}</h4>
-          <div>
-            author : <span>{by} </span>
-            created At : <span>{new Date(time).toLocaleString()} </span>
-            type : <span>{type}</span>
-            <span onClick={this.redirectToOriginalPost}> Read More</span>
-            Comments:
-            <Link to={
-              {
-                pathname: `${appConstants.API_ITEM}/${id}`,
-                state: { data: data }
-              }}
+        <div className='card card-wrapper'>
+          <div className='card-header'>{title}</div>
+          <div className='card-body'>
+            <h6 className='blockquote-footer'>
+              <cite title={by} >{by}</cite>
+            </h6>
+
+            <h6 className="card-subtitle mb-2 text-muted">Created At: {createdDate} </h6>
+            <h6 className="card-subtitle mb-2 text-muted">Type: {type}</h6>
+            <Link className='card-subtitle mb-2'
+              to={
+                {
+                  pathname: `${appConstants.API_ITEM}/${id}`,
+                  state: { data: data }
+                }}
             >
-              {descendants}
+              Comments: {descendants}
             </Link>
+            <button onClick={this.redirectToOriginalPost} className="btn btn-primary card-read-more">Read More</button>
           </div>
         </div>;
     } else {
-      element = 'Loading';
+      element = <div className="card">Loading</div>;
     }
 
     return (
-      <div className="card">
+      <>
         {element}
-      </div >
+      </>
     );
   }
 }

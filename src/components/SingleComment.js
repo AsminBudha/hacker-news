@@ -35,9 +35,6 @@ class SingleComment extends React.Component {
     http
       .getItem(id)
       .then((response) => {
-        if (response.data.deleted) {
-          return;
-        }
         this.setState({
           data: response.data,
         });
@@ -52,12 +49,14 @@ class SingleComment extends React.Component {
    */
   render() {
     const { data } = this.state;
+    const author = data ? <cite title={data.by} className='blockquote-footer'>{data.by}</cite> : '';
     const element = data ? data.text : 'Loading';
     const subComments = data ? <Comment data={data.kids} /> : '';
 
     return (
       <div>
-        <p className='card'>{element}</p>
+        {author}
+        <p className='card' dangerouslySetInnerHTML={{ __html: element }}></p>
         {subComments}
       </div>
     );

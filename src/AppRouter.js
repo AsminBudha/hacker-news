@@ -25,7 +25,7 @@ class AppRouter extends React.Component {
 
     return (
       <Router>
-        <div>
+        <div className='container-fluid'>
           <Header />
           <Switch>
             <Route path='/' exact component={(props) => <App {...props} />} />
