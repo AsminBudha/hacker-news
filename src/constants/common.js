@@ -19,8 +19,10 @@ export const API_ITEM_SINGLE = '/item/:id';
 export const API_TOP_STORIES = '/topstories';
 export const API_NEW_STORIES = '/newstories';
 export const API_BEST_STORIES = '/beststories';
+export const API_SIGN_IN = '/signin';
+export const API_SIGN_UP = '/signup';
 
-export const PAGINATION_LIMIT = 10;
+export const PAGINATION_LIMIT = 3;
 export const PAGINATION_INCREMENT_FACTOR = 1;
 export const PAGINATION_DECREMENT_FACTOR = -1;
 

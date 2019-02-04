@@ -27,7 +27,6 @@ class Header extends React.Component {
    * @memberof Header
    */
   render() {
-
     return (
       <div className='head-title'>
         <div className='header-icon'>
@@ -38,4 +37,5 @@ class Header extends React.Component {
     );
   }
 }
+
 export default Header;

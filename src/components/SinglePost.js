@@ -17,7 +17,6 @@ const SinglePost = (props) => {
       <div className='card-body'>
         <Comments data={kids} />
       </div>
-
     </div>
   );
 };

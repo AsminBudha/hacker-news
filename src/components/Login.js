@@ -1,5 +1,6 @@
 import React from 'react';
 
+import httpLogin from '../services/httpLogin';
 import * as appConstants from '../constants/common';
 import * as localStorage from '../services/localStorage';
 
@@ -80,17 +81,22 @@ class Login extends React.Component {
       return;
     }
 
-    const users = JSON.parse(localStorage.getLocalStorage(appConstants.USERS_IN_STORAGE)) || [];
-    const temp = users.filter((item) =>
-      item.email === emailVal && item.password === passwordVal);
+    const apiCall = httpLogin.signIn(emailVal, passwordVal);
 
-    if (temp.length > 0) {
-      localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
-      this.props.history.push('');
-    } else {
-      alert('Username or Password didn\'t match');
-    }
+    apiCall
+      .then((res) => {
+        const result = res.data.result;
 
+        if (result.success) {
+          localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
+          this.props.history.push('');
+        } else {
+          alert(result.message);
+        }
+      })
+      .catch(() => {
+        alert('Unexpected Error');
+      });
   }
 
   /**
@@ -107,17 +113,23 @@ class Login extends React.Component {
       return;
     }
 
-    const users = JSON.parse(localStorage.getLocalStorage(appConstants.USERS_IN_STORAGE)) || [];
-    const temp = users.filter((item) => item.email === emailVal);
+    const apiCall = httpLogin.signUp(emailVal, passwordVal);
 
-    if (temp.length > 0) {
-      alert('Email already used');
-    } else {
-      localStorage.setLocalStorage(appConstants.USERS_IN_STORAGE
-        , JSON.stringify([...users, { email: emailVal, password: passwordVal }]));
-      localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
-      this.props.history.push('');
-    }
+    apiCall
+      .then((res) => {
+        const result = res.data.result;
+
+        if (result.success) {
+          localStorage.setLocalStorage(appConstants.IS_LOGGED_IN_KEY, true);
+
+          this.props.history.push('');
+        } else {
+          alert(result.message);
+        }
+      })
+      .catch(() => {
+        alert('Unexpected Error');
+      });
   }
 
   /**
