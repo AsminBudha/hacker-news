@@ -101,8 +101,8 @@ class NewsList extends React.Component {
    * @memberof NewsList
    */
   render() {
-    const { prevBtnDisabledStatus, nextBtnDisabledStatus, dataIds } = this.state;
-    const start = this.state.page * appConstants.PAGINATION_LIMIT;
+    const { prevBtnDisabledStatus, nextBtnDisabledStatus, dataIds, page } = this.state;
+    const start = page * appConstants.PAGINATION_LIMIT;
     const end = Math.min(start + appConstants.PAGINATION_LIMIT, dataIds.length);
     const dataIdList = dataIds.slice(start, end);
     const listItem = dataIdList.map((id) =>
@@ -110,25 +110,39 @@ class NewsList extends React.Component {
         <NewsItem id={id} />
       </li>
     );
+    const prevBtnDisabledStatusTxt = prevBtnDisabledStatus ? 'disabled' : '';
+    const nextBtnDisabledStatusTxt = nextBtnDisabledStatus ? 'disabled' : '';
 
     return (
       <div>
-        <ul className="accordion" id="accordionExample">
+        <ul>
           {listItem}
         </ul>
-        <button
-          disabled={prevBtnDisabledStatus}
-          onClick={() => this.updatePage(appConstants.PAGINATION_DECREMENT_FACTOR)}
-        >
-          {appConstants.PREV_TXT}
-        </button>
-        <button
-          disabled={nextBtnDisabledStatus}
-          onClick={() => this.updatePage(appConstants.PAGINATION_INCREMENT_FACTOR)}
-        >
-          {appConstants.NEXT_TXT}
-        </button>
-      </div>
+        <div>
+          <ul className="pagination justify-content-center">
+            <li
+              className={`page-item ${prevBtnDisabledStatusTxt}`}
+              onClick={() => this.updatePage(appConstants.PAGINATION_DECREMENT_FACTOR)}>
+              <a className="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li className="page-item active">
+              <a className="page-link" href="#">
+                {page + 1}
+              </a>
+            </li>
+            <li
+              className={`page-item ${nextBtnDisabledStatusTxt}`}
+              onClick={() => this.updatePage(appConstants.PAGINATION_INCREMENT_FACTOR)}>
+              <a className="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div >
     );
   }
 }

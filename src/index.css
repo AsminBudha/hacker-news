@@ -12,6 +12,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.head-title{
+  text-align: center;
+  background-color: rgba(0,0,0,.03);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  color: #25292D;
+}
+
+.header-icon{
+  float: right;
+  padding-right: 15px;
+}
+
 ul{
   list-style-type: none;
   padding: 0px;
@@ -21,5 +36,36 @@ ul{
 }
 
 .comments{
-  padding-left: 15px;
+  margin-left: 5px;
+  padding-left: 5px;
+  border-left: 2px solid gainsboro;
+}
+
+.tab-item{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.tab-item a{
+  text-align: center;
+}
+
+.tabs{
+  margin: auto 0px;
+}
+
+.card-read-more{
+  float: right;
+}
+
+.card-wrapper{
+  margin: 5px auto;
+}
+
+.card-wrapper:nth-child(1){
+  margin-top: 0px;
+}
+
+.btn-signup{
+  margin-left: 15px;
 }
