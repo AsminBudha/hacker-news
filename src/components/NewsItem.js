@@ -72,9 +72,8 @@ class NewsItem extends React.Component {
           <div className='card-header'>{title}</div>
           <div className='card-body'>
             <h6 className='blockquote-footer'>
-              <cite title={by} >{by}</cite>
+              <cite title={by}>{by}</cite>
             </h6>
-
             <h6 className="card-subtitle mb-2 text-muted">Created At: {createdDate} </h6>
             <h6 className="card-subtitle mb-2 text-muted">Type: {type}</h6>
             <Link className='card-subtitle mb-2'
